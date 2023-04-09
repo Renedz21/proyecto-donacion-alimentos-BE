@@ -43,3 +43,17 @@ export const updateStore = async (req: Request, res: Response, next: any) => {
         next(createError('No se pudo actualizar la tienda local', 500));
     }
 }
+
+export const deleteStore = async (req: Request, res: Response, next: any) => {
+
+    try {
+        const { id } = req.params;
+        const deletedStore = await Store.findByIdAndDelete(id);
+
+        res.status(200).json(deletedStore);
+
+    } catch (error) {
+        next(createError('No se pudo eliminar la tienda local', 500));
+    }
+
+}

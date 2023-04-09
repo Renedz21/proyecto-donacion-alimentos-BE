@@ -1,16 +1,7 @@
 import { Request, Response } from 'express'
 import Food from '../models/food.schema'
 import { createError } from '../utils/createError'
-import { v2 as cloudinary } from 'cloudinary'
-import * as dotenv from 'dotenv'
-
-dotenv.config()
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-})
+import { uploadImage } from '../utils/uploadImage'
 
 export const getFood = async (_req: Request, res: Response, next: any) => {
     try {
@@ -39,7 +30,8 @@ export const getFoodById = async (req: Request, res: Response, next: any) => {
 export const createFood = async (req: Request, res: Response, next: any) => {
 
     const { name, description, nutritionFacts, expirationDate, quantity, status, photoUrl, storeId, beneficOrganizationId, donationId, foodTypeId } = req.body
-    const photoURL = await cloudinary.uploader.upload(photoUrl);
+
+    const photoURL = await uploadImage(photoUrl)
 
     try {
 
@@ -50,7 +42,7 @@ export const createFood = async (req: Request, res: Response, next: any) => {
             expirationDate,
             quantity,
             status,
-            photoUrl: photoURL.url,
+            photoUrl: photoURL,
             storeId,
             beneficOrganizationId,
             donationId,

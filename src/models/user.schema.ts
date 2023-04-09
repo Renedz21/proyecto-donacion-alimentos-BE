@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role",
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     status: {
         type: String,
         default: "active"
