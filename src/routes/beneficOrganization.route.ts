@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get('/', getBeneficOrganizations)
 router.get('/:id', getBeneficOrganizationById)
-router.post('/', createBeneficOrganization)
+router.post('/', verifyTokenAndAdmin, createBeneficOrganization)
 router.put('/:id', verifyTokenAndAdmin, updateBeneficOrganization)
 router.delete('/:id', verifyTokenAndAdmin, deleteBeneficOrganization)
 
