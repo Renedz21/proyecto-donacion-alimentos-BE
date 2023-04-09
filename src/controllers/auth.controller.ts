@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response, next: any) => {
 
         const user: any = await newUser.save();
 
-        const token = jwt.sign({ id: user._id }, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '2h' })
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '2h' })
         // const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESK_SECRET_KEY, { expiresIn: '7d' })
 
         const { password: _, ...data } = user._doc
@@ -47,7 +47,7 @@ export const login = async (req: Request, res: Response, next: any) => {
 
         if (!isCorrect) res.status(400).send("Email or password is wrong")
 
-        const token = jwt.sign({ id: user._id }, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '1d' })
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, `${process.env.JWT_SECRET_KEY}`, { expiresIn: '1d' })
 
         const { password: _, ...data } = user._doc
 

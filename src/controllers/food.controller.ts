@@ -31,7 +31,7 @@ export const createFood = async (req: Request, res: Response, next: any) => {
 
     const { name, description, nutritionFacts, expirationDate, quantity, status, photoUrl, storeId, beneficOrganizationId, donationId, foodTypeId } = req.body
 
-    const photoURL = await uploadImage(photoUrl)
+    const photoURL = await uploadImage(photoUrl, 'foods')
 
     try {
 

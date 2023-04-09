@@ -32,7 +32,7 @@ export const createFoodType = async (req: Request, res: Response, next: any) => 
 
         const { name, description, photoUrl } = req.body
 
-        const photoURL = await uploadImage(photoUrl)
+        const photoURL = await uploadImage(photoUrl, 'food-type')
 
         const foodType = await FoodType.create({
             name,
@@ -55,7 +55,7 @@ export const updateFoodType = async (req: Request, res: Response, next: any) => 
 
         const { name, description, photoUrl } = req.body
 
-        const photoURL = await uploadImage(photoUrl)
+        const photoURL = await uploadImage(photoUrl, 'food-type')
 
         const foodType = await FoodType.findByIdAndUpdate(id, {
             $set: {

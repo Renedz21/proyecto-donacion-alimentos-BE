@@ -31,8 +31,7 @@ export const createBeneficOrganization = async (req: Request, res: Response, nex
 
         const { name, address, phone, photoUrl } = req.body
 
-        const photoURL = await uploadImage(photoUrl)
-
+        const photoURL = await uploadImage(photoUrl, 'benefic-organizations')
         const data = await BeneficOrganization.create({
             name,
             address,
@@ -56,7 +55,7 @@ export const updateBeneficOrganization = async (req: Request, res: Response, nex
 
         if (!id) return next(createError('No se envió el id de la Organización Benéfica', 400))
 
-        const photoURL = await uploadImage(photoUrl)
+        const photoURL = await uploadImage(photoUrl, 'benefic-organizations')
 
         const data = await BeneficOrganization.findByIdAndUpdate(id, {
             $set: {
